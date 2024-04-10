@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<nav>
+    <h1>Formulario de inicio de sesion</h1>
+</nav>
+<body>
+<main>
+    <form id="loginForm" onsubmit="return validateForm()" style="max-width: 300px; margin: 50px auto; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" placeholder="Ingrese un nombre..." required>
+    <div id="nombreError" class="error" style="color: red; font-size: 0.8em;"></div>
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" placeholder="Ingrese su edad..." required>
+    <div id="edadError" class="error" style="color: red; font-size: 0.8em;"></div>
+
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" placeholder="Ingrese su correo..." required>
+    <div id="correoError" class="error" style="color: red; font-size: 0.8em;"></div>
+
+    <input type="submit" value="Enviar" style="width: 100%; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+    </form>
+</main>
+<footer>
+    <label for="creadores">Benjamin Silva, Valentin Ermel</label>
+</footer>
+
+<script>
+function validateForm() {
+  var nombre = document.getElementById("nombre").value.trim();
+  var edad = document.getElementById("edad").value.trim();
+  var correo = document.getElementById("correo").value.trim();
+  
+  var nombreError = document.getElementById("nombreError");
+  var edadError = document.getElementById("edadError");
+  var correoError = document.getElementById("correoError");
+  
+  nombreError.textContent = "";
+  edadError.textContent = "";
+  correoError.textContent = "";
+  
+  var isValid = true;
+  
+  if (nombre === "") {
+    nombreError.textContent = "El nombre es obligatorio";
+    isValid = false;
+  }
+  
+  if (edad === "") {
+    edadError.textContent = "La edad es obligatoria";
+    isValid = false;
+  } else if (isNaN(edad)) {
+    edadError.textContent = "La edad debe ser numérica";
+    isValid = false;
+  }
+  
+  if (correo === "") {
+    correoError.textContent = "El correo es obligatorio";
+    isValid = false;
+  } else if (!isValidEmail(correo)) {
+    correoError.textContent = "El formato del correo no es válido";
+    isValid = false;
+  }
+  
+  return isValid;
+}
+
+function isValidEmail(email) {
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+</script>
+
+</body>
+</html>
